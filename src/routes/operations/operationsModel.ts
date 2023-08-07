@@ -2,7 +2,7 @@ import mongoose from 'mongoose'
 
 interface OperationsInterface extends mongoose.Document {
     operation: string
-    ingredients: string[]
+    ingredient: string[]
 	pizza: string[]
 }
 

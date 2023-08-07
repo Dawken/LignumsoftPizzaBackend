@@ -3,7 +3,7 @@ import mongoose from 'mongoose'
 interface PizzasInterface extends mongoose.Document {
     pizza: string
     operation: string[]
-    ingredients: string[]
+    ingredient: string[]
 }
 
 const pizzasSchema = new mongoose.Schema({
