@@ -34,14 +34,6 @@ pizzas.patch('/api/pizzas/:id', async (req, res) => {
 		return res.status(400).json({ message: error.message })
 	}
 	try {
-		const data = await Pizza.findById(req.params.id)
-
-		if (JSON.stringify(updatedData) === '{}' ||
-			JSON.stringify(data.ingredient) === JSON.stringify(updatedData.ingredient) ||
-			JSON.stringify(data.operation) === JSON.stringify(updatedData.operation) ||
-			data.pizza === updatedData.pizza) {
-			return res.status(400).json({ errorCode: 'nothing-changed' })
-		}
 		const { id } = req.params
 
 		const result = await Pizza.findByIdAndUpdate(id, updatedData)
