@@ -5,6 +5,24 @@ import { OperationDTO } from './operationsDTO'
 
 const operations = Router()
 
+operations.get('/api/operations/:id', async (req, res) => {
+	try {
+		const data = await Operation.findById(req.params.id)
+		res.status(200).json(data)
+	} catch (error) {
+		res.status(500).json({ message: error.message })
+	}
+})
+
+operations.get('/api/operations', async (req, res) => {
+	try {
+		const data = await Operation.find()
+		res.status(200).json(data)
+	} catch (error) {
+		res.status(500).json({ message: error.message })
+	}
+})
+
 operations.post('/api/operations', async (req, res) => {
 	try {
 		const data = new Operation({
@@ -18,14 +36,7 @@ operations.post('/api/operations', async (req, res) => {
 		res.status(500).json({ message: error.message })
 	}
 })
-operations.get('/api/operations/:id', async (req, res) => {
-	try {
-		const data = await Operation.findById(req.params.id)
-		res.status(200).json(data)
-	} catch (error) {
-		res.status(500).json({ message: error.message })
-	}
-})
+
 operations.patch('/api/operations/:id', async (req, res) => {
 	const updatedData = req.body
 	try {

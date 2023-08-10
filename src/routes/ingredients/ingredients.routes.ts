@@ -6,6 +6,25 @@ import { IngredientDTO } from './ingredientsDTO'
 
 const ingredients = Router()
 
+
+ingredients.get('/api/ingredients/:id', async (req, res) => {
+	try {
+		const data = await Ingredient.findById(req.params.id)
+		res.status(200).json(data)
+	} catch (error) {
+		res.status(500).json({ message: error.message })
+	}
+})
+
+ingredients.get('/api/ingredients/', async (req, res) => {
+	try {
+		const data = await Ingredient.find()
+		res.status(200).json(data)
+	} catch (error) {
+		res.status(500).json({ message: error.message })
+	}
+})
+
 ingredients.post('/api/ingredients', async (req, res) => {
 	try {
 		const data = new Ingredient({
@@ -19,14 +38,7 @@ ingredients.post('/api/ingredients', async (req, res) => {
 		res.status(500).json({ message: error.message })
 	}
 })
-ingredients.get('/api/ingredients/:id', async (req, res) => {
-	try {
-		const data = await Ingredient.findById(req.params.id)
-		res.status(200).json(data)
-	} catch (error) {
-		res.status(500).json({ message: error.message })
-	}
-})
+
 ingredients.patch('/api/ingredient/:id', async (req, res) => {
 	const updatedData = req.body
 	try {
