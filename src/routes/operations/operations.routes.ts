@@ -7,7 +7,13 @@ const operations = Router()
 
 operations.get('/api/operations/:id', async (req, res) => {
 	try {
+		const { populate } = req.query
+
+		const fieldsToPopulate = typeof populate === 'string' ? populate.split(',') : []
+
 		const data = await Operation.findById(req.params.id)
+			.populate(fieldsToPopulate)
+			.exec()
 		res.status(200).json(data)
 	} catch (error) {
 		res.status(500).json({ message: error.message })
@@ -16,7 +22,13 @@ operations.get('/api/operations/:id', async (req, res) => {
 
 operations.get('/api/operations', async (req, res) => {
 	try {
+		const { populate } = req.query
+
+		const fieldsToPopulate = typeof populate === 'string' ? populate.split(',') : []
+
 		const data = await Operation.find()
+			.populate(fieldsToPopulate)
+			.exec()
 		res.status(200).json(data)
 	} catch (error) {
 		res.status(500).json({ message: error.message })
@@ -26,9 +38,9 @@ operations.get('/api/operations', async (req, res) => {
 operations.post('/api/operations', async (req, res) => {
 	try {
 		const data = new Operation({
-			operation: req.body.operation,
-			ingredient: req.body.ingredient,
-			pizza: req.body.pizza
+			operationName: req.body.operationName,
+			ingredients: req.body.ingredients,
+			pizzas: req.body.pizzas
 		})
 		const dataToSave = data.save()
 		res.status(201).json(dataToSave)

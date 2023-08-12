@@ -1,23 +1,23 @@
 import { IsArray, IsOptional, IsString } from 'class-validator'
 
 interface Operation {
-    operation: string
-    pizza: string[]
-    ingredient: string[]
+    operationName: string
+    pizzas: string[]
+    ingredients: string[]
 }
 
 export class OperationDTO implements Operation {
     @IsOptional()
     @IsString()
-    	operation: string
+    	operationName: string
 
     @IsOptional()
     @IsArray()
     @IsString({ each: true })
-    	pizza: string[]
+    	pizzas: string[]
 
     @IsOptional()
     @IsArray()
     @IsString({ each: true })
-    	ingredient: string[]
+    	ingredients: string[]
 }

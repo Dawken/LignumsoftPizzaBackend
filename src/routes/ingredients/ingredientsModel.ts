@@ -1,23 +1,18 @@
 import mongoose from 'mongoose'
 
 interface IngredientsInterface extends mongoose.Document {
-	ingredient: string
+	ingredientName: string
 	operation: string
-	pizza: string[]
+	pizzas: string[]
 }
 
 const ingredientsSchema = new mongoose.Schema({
-	ingredient: {
+	ingredientName: {
 		required: true,
 		type: String,
 	},
-	operation: {
-		type: String
-	},
-	pizza: {
-		required: true,
-		type: [String]
-	}
+	operation: { type: mongoose.Schema.Types.ObjectId, ref: 'operations' },
+	pizzas: [{ type: mongoose.Schema.Types.ObjectId, ref: 'pizzas' }]
 })
 
 export default mongoose.model<IngredientsInterface>('ingredients', ingredientsSchema)

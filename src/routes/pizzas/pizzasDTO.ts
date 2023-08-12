@@ -1,23 +1,23 @@
 import { IsArray, IsOptional, IsString } from 'class-validator'
 
 interface Pizza {
-    pizza: string
-    operation: string[]
-    ingredient: string[]
+    pizzaName: string
+    operations: string[]
+    ingredients: string[]
 }
 
 export class PizzaDTO implements Pizza {
     @IsOptional()
     @IsString()
-    	pizza: string
+    	pizzaName: string
 
     @IsOptional()
     @IsArray()
     @IsString({ each: true })
-    	operation: string[]
+    	operations: string[]
 
     @IsOptional()
     @IsArray()
     @IsString({ each: true })
-    	ingredient: string[]
+    	ingredients: string[]
 }

@@ -8,7 +8,13 @@ const pizzas = Router()
 
 pizzas.get('/api/pizzas/:id', async (req, res) => {
 	try {
+		const { populate } = req.query
+
+		const fieldsToPopulate = typeof populate === 'string' ? populate.split(',') : []
+
 		const data = await Pizza.findById(req.params.id)
+			.populate(fieldsToPopulate)
+			.exec()
 		res.status(200).json(data)
 	} catch (error) {
 		res.status(500).json({ message: error.message })
@@ -17,7 +23,13 @@ pizzas.get('/api/pizzas/:id', async (req, res) => {
 
 pizzas.get('/api/pizzas', async (req, res) => {
 	try {
+		const { populate } = req.query
+
+		const fieldsToPopulate = typeof populate === 'string' ? populate.split(',') : []
+
 		const data = await Pizza.find()
+			.populate(fieldsToPopulate)
+			.exec()
 		res.status(200).json(data)
 	} catch (error) {
 		res.status(500).json({ message: error.message })
@@ -27,9 +39,9 @@ pizzas.get('/api/pizzas', async (req, res) => {
 pizzas.post('/api/pizzas', async (req, res) => {
 	try {
 		const data = new Pizza({
-			pizza: req.body.pizza,
-			ingredient: req.body.ingredient,
-			operation: req.body.operation
+			pizzaName: req.body.pizzaName,
+			ingredients: req.body.ingredients,
+			operations: req.body.operations
 		})
 		const dataToSave = data.save()
 		res.status(201).json(dataToSave)
