@@ -40,7 +40,7 @@ ingredients.get('/api/ingredients/', async (req, res) => {
 ingredients.post('/api/ingredients', async (req, res) => {
 	try {
 		const data = new Ingredient({
-			ingredientName: req.body.ingredientName,
+			name: req.body.name,
 			operation: req.body.operation,
 			pizzas: req.body.pizzas
 		})

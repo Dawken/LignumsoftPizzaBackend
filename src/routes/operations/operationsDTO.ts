@@ -1,7 +1,7 @@
 import { IsArray, IsOptional, IsString } from 'class-validator'
 
 interface Operation {
-    operationName: string
+    name: string
     pizzas: string[]
     ingredients: string[]
 }
@@ -9,7 +9,7 @@ interface Operation {
 export class OperationDTO implements Operation {
     @IsOptional()
     @IsString()
-    	operationName: string
+    	name: string
 
     @IsOptional()
     @IsArray()

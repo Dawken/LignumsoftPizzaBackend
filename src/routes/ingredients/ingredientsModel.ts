@@ -1,13 +1,13 @@
 import mongoose from 'mongoose'
 
 interface IngredientsInterface extends mongoose.Document {
-	ingredientName: string
+	name: string
 	operation: string
 	pizzas: string[]
 }
 
 const ingredientsSchema = new mongoose.Schema({
-	ingredientName: {
+	name: {
 		required: true,
 		type: String,
 	},

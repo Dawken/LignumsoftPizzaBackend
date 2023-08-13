@@ -39,7 +39,7 @@ pizzas.get('/api/pizzas', async (req, res) => {
 pizzas.post('/api/pizzas', async (req, res) => {
 	try {
 		const data = new Pizza({
-			pizzaName: req.body.pizzaName,
+			name: req.body.name,
 			ingredients: req.body.ingredients,
 			operations: req.body.operations
 		})

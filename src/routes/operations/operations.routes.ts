@@ -38,7 +38,7 @@ operations.get('/api/operations', async (req, res) => {
 operations.post('/api/operations', async (req, res) => {
 	try {
 		const data = new Operation({
-			operationName: req.body.operationName,
+			name: req.body.name,
 			ingredients: req.body.ingredients,
 			pizzas: req.body.pizzas
 		})
