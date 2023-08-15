@@ -10,9 +10,11 @@ import { mongoDb } from './shared/mongoDbUrl'
 config()
 const app = express()
 
-const mongoConnectionString = mongoDb.url
 
 const localhost = process.env.ORIGIN
+const { MONGO_CONNECTED_STRING } = process.env
+
+const mongoConnectionString = MONGO_CONNECTED_STRING ?? mongoDb.url
 
 const corsOptions = {
 	origin: localhost,

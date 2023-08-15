@@ -15,4 +15,5 @@ const ingredientsSchema = new mongoose.Schema({
 	pizzas: [{ type: mongoose.Schema.Types.ObjectId, ref: 'pizzas' }]
 })
 
+
 export default mongoose.model<IngredientsInterface>('ingredients', ingredientsSchema)
