@@ -5,11 +5,13 @@ import cors from 'cors'
 import ingredients from './routes/ingredients/ingredients.routes'
 import operations from './routes/operations/operations.routes'
 import pizzas from './routes/pizzas/pizzas.routes'
+import { mongoDb } from './shared/mongoDbUrl'
 
 config()
 const app = express()
 
-const mongoConnectionString = process.env.MONGO_CONNECTED_STRING
+const mongoConnectionString = mongoDb.url
+
 const localhost = process.env.ORIGIN
 
 const corsOptions = {
