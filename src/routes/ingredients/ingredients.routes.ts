@@ -125,4 +125,29 @@ ingredients.patch('/api/ingredients/:id', async (req, res) => {
 		res.status(500).json({ message: error.message })
 	}
 })
+ingredients.delete('/api/ingredients/:id', async (req, res) => {
+	const { id } = req.params
+
+	try {
+		const deletedIngredient = await Ingredient.findByIdAndRemove(id)
+
+		if (!deletedIngredient) {
+			return res.status(404).json({ message: 'Ingredient not found' })
+		}
+
+		await Pizza.updateMany(
+			{ ingredients: id },
+			{ $pull: { ingredients: id } }
+		)
+
+		await Operation.updateMany(
+			{ ingredients: id },
+			{ $pull: { ingredients: id } }
+		)
+
+		res.status(200).json({ message: 'Ingredient deleted successfully' })
+	} catch (error) {
+		res.status(500).json({ message: error.message })
+	}
+})
 export default ingredients

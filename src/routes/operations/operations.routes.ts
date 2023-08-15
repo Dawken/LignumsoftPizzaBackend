@@ -126,4 +126,28 @@ operations.patch('/api/operations/:id', async (req, res) => {
 		res.status(500).json({ message: error.message })
 	}
 })
+operations.delete('/api/operations/:id', async (req, res) => {
+	const { id } = req.params
+
+	try {
+		const deletedOperation = await Operation.findByIdAndRemove(id)
+
+		if (!deletedOperation) {
+			return res.status(404).json({ message: 'Operation not found' })
+		}
+		await Pizza.updateMany(
+			{ operations: id },
+			{ $pull: { operations: id } }
+		)
+
+		await Ingredient.updateMany(
+			{ operations: id },
+			{ $pull: { operations: id } }
+		)
+
+		res.status(200).json({ message: 'Operation deleted successfully' })
+	} catch (error) {
+		res.status(500).json({ message: error.message })
+	}
+})
 export default operations

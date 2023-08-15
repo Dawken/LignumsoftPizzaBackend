@@ -126,4 +126,29 @@ pizzas.patch('/api/pizzas/:id', async (req, res) => {
 		res.status(500).json({ message: error.message })
 	}
 })
+pizzas.delete('/api/pizzas/:id', async (req, res) => {
+	const { id } = req.params
+
+	try {
+		const deletedPizza = await Pizza.findByIdAndRemove(id)
+
+		if (!deletedPizza) {
+			return res.status(404).json({ message: 'Pizza not found' })
+		}
+
+		await Ingredient.updateMany(
+			{ pizzas: id },
+			{ $pull: { pizzas: id } }
+		)
+
+		await Operation.updateMany(
+			{ pizzas: id },
+			{ $pull: { pizzas: id } }
+		)
+
+		res.status(200).json({ message: 'Pizza deleted successfully' })
+	} catch (error) {
+		res.status(500).json({ message: error.message })
+	}
+})
 export default pizzas
